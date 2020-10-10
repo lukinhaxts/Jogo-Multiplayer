@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title> Meu Primeiro Jogo Online </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style> 
+            #areaDoJogo
+            {
+                border: 10px solid #CCC;
+                image-rendering: pixelated;
+                image-rendering: crisp-edges;
+                image-rendering: -moz-crisp-edges;
+                width: 400px;
+                height: 400px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="areaDoJogo" width="10" height="10"></canvas>
+        <script type="module">
+            import criarJogo from "./criarJogo.js";
+            import criarKeyboardListener from "./criarKeyboardListener.js";
+            import construirEspacoDoJogo from "./construirEspacoDoJogo.js";
+
+            const jogo = criarJogo();
+            const keyboardListener = criarKeyboardListener(document);
+            keyboardListener.subscrever(jogo.moverJogador);
+
+            const areaDoJogo = document.getElementById("areaDoJogo");
+            construirEspacoDoJogo(areaDoJogo, jogo, requestAnimationFrame);
+
+            jogo.adicionarJogador({nomeDoJogador: "Jogador1", jogadorX: 0, jogadorY: 0});
+            jogo.adicionarJogador({nomeDoJogador: "Jogador2", jogadorX: 3, jogadorY: 0});
+            jogo.adicionarJogador({nomeDoJogador: "Jogador3", jogadorX: 0, jogadorY: 5});
+            jogo.adicionarFruta({nomeDaFruta: "Fruta1", frutaX: 5, frutaY: 7});
+            jogo.adicionarFruta({nomeDaFruta: "Fruta2", frutaX: 9, frutaY: 9});
+        </script>
+    </body>
+</html>
